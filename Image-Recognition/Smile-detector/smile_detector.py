@@ -1,12 +1,15 @@
-
+#Importing libraries
 import cv2 
-
+#Using the haarcascade for recognition purpose
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml") 
 eye_cascade =  cv2.CascadeClassifier("haarcascade_eye.xml")  
 smile_cascade = cv2.CascadeClassifier("smile_cascade.xml") 
 
 def detect(gray,frame) : 
       faces = face_cascade.detectMultiScale(gray,1.3,5) 
+      #detectMultiScale(gray,scale factor , min number of neighbors) are the parameters
+      #min number of neighbors helps in reducing the false positive errors in pictures . 
+      #That's why for smile and eye cascade the min numberis kept high enough
       for (x,y,w,h) in faces : 
           cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2) 
           roi_gray = gray[y:y+h,x:x+w] 
